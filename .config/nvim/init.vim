@@ -15,7 +15,7 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'jreybert/vimagit'
 Plug 'lukesmithxyz/vimling'
 Plug 'vimwiki/vimwiki'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'ap/vim-css-color'
 Plug 'vlime/vlime', {'rtp': 'vim/'}
@@ -102,8 +102,8 @@ set noshowcmd
 
 " Ensure files are read as what I want:
 	let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-	map <leader>v :VimwikiIndex
-	let g:vimwiki_list = [{'path': '~/vimwiki', 'ext': '.md', 'custom_wiki2html': 'vimwiki_markdown', 'html_filename_parameterization': 1}]
+	map <leader>v :VimwikiIndex<CR>
+	let g:vimwiki_list = [{'path': '~/.local/share/nvim/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
 	autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
 	autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
 	autocmd BufRead,BufNewFile *.tex set filetype=tex
@@ -117,14 +117,17 @@ set noshowcmd
 	autocmd BufRead,BufNewFile /tmp/neomutt* map ZZ :Goyo\|x!<CR>
 	autocmd BufRead,BufNewFile /tmp/neomutt* map ZQ :Goyo\|q!<CR>
 
-" Automatically deletes all trailing whitespace and newlines at end of file on save.
+" Automatically deletes all trailing whitespace and newlines at end of file on save. & reset cursor position
+ 	autocmd BufWritePre * let currPos = getpos(".")
 	autocmd BufWritePre * %s/\s\+$//e
 	autocmd BufWritePre * %s/\n\+\%$//e
+	autocmd BufWritePre *.[ch] %s/\%$/\r/e
+  	autocmd BufWritePre * cal cursor(currPos[1], currPos[2])
 
 " When shortcut files are updated, renew bash and ranger configs with new material:
 	autocmd BufWritePost bm-files,bm-dirs !shortcuts
 " Run xrdb whenever Xdefaults or Xresources are updated.
-	autocmd BufRead,BufNewFile xresources,xdefaults set filetype=xdefaults
+	autocmd BufRead,BufNewFile Xresources,Xdefaults,xresources,xdefaults set filetype=xdefaults
 	autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
 " Recompile dwmblocks on config edit.
 	autocmd BufWritePost ~/.local/src/dwmblocks/config.h !cd ~/.local/src/dwmblocks/; sudo make install && { killall -q dwmblocks;setsid -f dwmblocks }
@@ -135,7 +138,7 @@ if &diff
 endif
 
 " Function for toggling the bottom statusbar:
-let s:hidden_all = 1
+let s:hidden_all = 0
 function! ToggleHiddenAll()
     if s:hidden_all  == 0
         let s:hidden_all = 1
@@ -151,7 +154,6 @@ function! ToggleHiddenAll()
         set showcmd
     endif
 endfunction
-nnoremap <leader>h :call ToggleHiddenAll()<CR>
 
 let g:vlime_contribs = ['SWANK-ASDF', 'SWANK-PACKAGE-FU',
                       \ 'SWANK-PRESENTATIONS', 'SWANK-FANCY-INSPECTOR',
@@ -182,3 +184,10 @@ nnoremap <Space><Space> <ESC>/<++><CR>c4l
 nnoremap <C-Space> i<++><ESC>
 nnoremap \beg v$hdI\begin{}<ESC>Po\end{}<ESC>PO
 nnoremap $$ a$$<ESC>i
+
+nnoremap <leader>h :call ToggleHiddenAll()<CR>
+" Load command shortcuts generated from bm-dirs and bm-files via shortcuts script.
+" Here leader is ";".
+" So ":vs ;cfz" will expand into ":vs /home/<user>/.config/zsh/.zshrc"
+" if typed fast without the timeout.
+source ~/.config/nvim/shortcuts.vim
