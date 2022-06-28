@@ -11,3 +11,14 @@ pp  ${XDG_PICTURES_DIR:-$HOME/Pictures}
 sc  $HOME/.local/bin
 src $HOME/.local/src
 vv  ${XDG_VIDEOS_DIR:-$HOME/Videos}
+yc  ${XDG_YOINI_CLONES_DIR:-$HOME/yoini-clones}
+yy  ${XDG_YOINI_DIR:-$HOME/yoini}
+u   ${XDG_UNI_DIR:-$HOME/uni}
+me  ${XDG_MELINA_DIR:-$HOME/Documents/Melina}
+ll  ${XDG_LETTERS_DIR:-$HOME/Documents/Melina/letters}
+dur ${XDG_DUR_DIR:-$HOME/uni/DT}
+fh  ${XDG_FORTH_DIR:-$HOME/hacking/forth}
+se  ${XDG_SEM_DIR:-$HOME/semester-21-22}
+ha  ${XDG_HACKING_DIR:-$HOME/hacking}
+abc ${XDG_ABC_DIR:-$HOME/hacking/allebrauchenchristus.de}
+cm  ${XDG_COMMA_DIR:-$HOME/CommaProjects}

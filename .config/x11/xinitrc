@@ -15,3 +15,7 @@ else
 fi
 
 ssh-agent dwm
+#ssh-agent Hypr
+
+#exec ./start-stump
+#exec guile-wm

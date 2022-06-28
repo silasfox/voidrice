@@ -7,15 +7,19 @@
 
 # Adds `~/.local/bin` to $PATH
 export PATH="$PATH:$(du "$HOME/.local/bin" | cut -f2 | paste -sd ':')"
+export PATH="$PATH:/home/fox/.local/share/gem/ruby/2.7.0/bin/"
+export PATH="$PATH:/home/fox/.roswell/bin"
+export PATH="$PATH:/home/fox/.local/share/go/bin:/home/fox/hacking/oasis/x86_64-linux-musl-cross/bin:/home/fox/perl5/perlbrew/bin"
 
 unsetopt PROMPT_SP
 
 # Default programs:
 export EDITOR="nvim"
 export TERMINAL="st"
-export BROWSER="brave"
+export BROWSER="nyxt"
 
 # ~/ Clean-up:
+export XDG_DATA_DIRS="$XDG_DATA_DIRS:/usr/share"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -39,7 +43,6 @@ export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
 export ANSIBLE_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/ansible/ansible.cfg"
 export UNISON="${XDG_DATA_HOME:-$HOME/.local/share}/unison"
 export HISTFILE="${XDG_DATA_HOME:-$HOME/.local/share}/history"
-export WEECHAT_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/weechat"
 
 # Other program settings:
 export DICS="/usr/share/stardict/dic/"
@@ -152,3 +155,17 @@ fi
 
 # Switch escape and caps if tty and no passwd required:
 sudo -n loadkeys ${XDG_DATA_HOME:-$HOME/.local/share}/larbs/ttymaps.kmap 2>/dev/null
+
+export DOTNET_CLI_TELEMETRY_OPTOUT='1'
+
+# include Mycroft commands
+#source ~/.profile_mycroft
+
+#export GUIX_PROFILE="/home/fox/.guix-profile"
+#. "$GUIX_PROFILE/etc/profile"
+#export GUIX_LOCPATH=$HOME/.guix-profile/lib/locale
+export LC_ALL=en_US.UTF-8
+
+# OPS config
+export OPS_DIR="$HOME/.ops"
+export PATH="$HOME/.ops/bin:$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export LFS="/mnt"
+
 # Use neovim for vim if present.
 [ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
 
@@ -24,6 +26,7 @@ alias \
 alias \
 	ka="killall" \
 	g="git" \
+	gl="git log --oneline --decorate --graph" \
 	trem="transmission-remote" \
 	YT="youtube-viewer" \
 	sdn="sudo shutdown -h now" \
@@ -34,10 +37,16 @@ alias \
 	xi="sudo xbps-install" \
 	xr="sudo xbps-remove -R" \
 	xq="xbps-query" \
-	z="zathura"
+	z="zathura" \
+	phone_home="ssh sbv@silas.ddns.net" \
 
 alias \
 	magit="nvim -c MagitOnly" \
 	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" \
 	weath="less -S ${XDG_DATA_HOME:-$HOME/.local/share}/weatherreport" \
 	tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" \
+	textadv="$HOME/Programs/Lectrote/Lectrote" \
+	'pacman -S firefox'='exit' \
+	s="rlwrap ros -Q run" \
+	shen="rlwrap shen" \
+	bye="exit" \

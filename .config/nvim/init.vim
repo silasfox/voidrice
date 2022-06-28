@@ -11,12 +11,18 @@ call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"
 Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree'
 Plug 'junegunn/goyo.vim'
+Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'jreybert/vimagit'
 Plug 'lukesmithxyz/vimling'
 Plug 'vimwiki/vimwiki'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'ap/vim-css-color'
+Plug 'vlime/vlime', {'rtp': 'vim/'}
+Plug 'sbdchd/neoformat'
+Plug 'kovisoft/paredit'
+Plug 'dylanaraps/fff.vim'
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 call plug#end()
 
 set title
@@ -67,10 +73,10 @@ set noshowcmd
 	nm <leader><leader>q :call ToggleProse()<CR>
 
 " Shortcutting split navigation, saving a keypress:
-	map <C-h> <C-w>h
-	map <C-j> <C-w>j
-	map <C-k> <C-w>k
-	map <C-l> <C-w>l
+" 	map <C-h> <C-w>h
+" 	map <C-j> <C-w>j
+" 	map <C-k> <C-w>k
+" 	map <C-l> <C-w>l
 
 " Replace ex mode with gq
 	map Q gq
@@ -97,7 +103,7 @@ set noshowcmd
 " Ensure files are read as what I want:
 	let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 	map <leader>v :VimwikiIndex
-	let g:vimwiki_list = [{'path': '~/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
+	let g:vimwiki_list = [{'path': '~/vimwiki', 'ext': '.md', 'custom_wiki2html': 'vimwiki_markdown', 'html_filename_parameterization': 1}]
 	autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
 	autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
 	autocmd BufRead,BufNewFile *.tex set filetype=tex
@@ -146,3 +152,33 @@ function! ToggleHiddenAll()
     endif
 endfunction
 nnoremap <leader>h :call ToggleHiddenAll()<CR>
+
+let g:vlime_contribs = ['SWANK-ASDF', 'SWANK-PACKAGE-FU',
+                      \ 'SWANK-PRESENTATIONS', 'SWANK-FANCY-INSPECTOR',
+                      \ 'SWANK-C-P-C', 'SWANK-ARGLISTS', 'SWANK-REPL',
+                      \ 'SWANK-FUZZY', 'SWANK-TRACE-DIALOG']
+let g:lisp_rainbow=1
+
+exec 'digraph \\ ' .. char2nr('∖')
+exec 'digraph \< ' .. char2nr('≼')
+exec 'digraph \> ' .. char2nr('≽')
+exec 'digraph (L ' .. char2nr('⊈')
+exec 'digraph )L ' .. char2nr('⊉')
+exec 'digraph (/ ' .. char2nr('⊄')
+exec 'digraph )/ ' .. char2nr('⊅')
+exec 'digraph )/ ' .. char2nr('⊅')
+exec 'digraph U+ ' .. char2nr('⊎')
+exec 'digraph 0- ' .. char2nr('⊖')
+" Euler's constant
+exec 'digraph ne ' .. char2nr('𝑒')
+" Raku's atomic operations marker
+exec 'digraph @@ ' .. char2nr('⚛')
+
+nnoremap \s I\section{}<ESC>i
+nnoremap \ss I\subsection{}<ESC>i
+nnoremap \sss I\subsubsection{}<ESC>i
+
+nnoremap <Space><Space> <ESC>/<++><CR>c4l
+nnoremap <C-Space> i<++><ESC>
+nnoremap \beg v$hdI\begin{}<ESC>Po\end{}<ESC>PO
+nnoremap $$ a$$<ESC>i
